@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LionTech Business Support - Your Digital Transformation Partner</title>
+    <title>LionTech - Sri Lankan Business Software Solutions & Digital Support</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Global Styles */
         :root {
-            --primary-color: #007bff; /* LionTech Blue/Teal */
-            --secondary-color: #343a40; /* Dark text */
+            --primary-color: #007bff;
+            --secondary-color: #343a40;
+            --accent-color: #ffc107;
             --background-color: #f8f9fa;
             --white: #ffffff;
             --dark-bg: #212529;
             --gradient-blue: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+            --gradient-dark: linear-gradient(135deg, #212529 0%, #343a40 100%);
+            --whatsapp-green: #25D366;
         }
         * {
             margin: 0;
@@ -25,63 +30,117 @@
             background-color: var(--background-color);
             color: var(--secondary-color);
             line-height: 1.6;
+            overflow-x: hidden;
         }
         section {
-            padding: 80px 5%;
-            text-align: center;
+            padding: 100px 5%;
+            position: relative;
+            overflow: hidden;
         }
         h2 {
             font-size: 2.5em;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-weight: 700;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
         }
         p.subtitle {
-            font-size: 1.1em;
+            font-size: 1.2em;
             margin-bottom: 40px;
             color: #6c757d;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
         }
 
         /* Utility Classes */
         .text-primary { color: var(--primary-color); }
-        .bg-dark { background-color: var(--dark-bg); color: var(--white); }
-        .container { max-width: 1200px; margin: auto; }
+        .bg-dark { 
+            background: var(--gradient-dark);
+            color: var(--white);
+        }
+        .container { 
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: none;
         }
         .btn-primary {
             background: var(--gradient-blue);
             color: var(--white);
-            border: none;
             box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
         }
         .btn-primary:hover {
-            opacity: 0.9;
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
         }
-        .flex-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--whatsapp-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 1.8rem;
+        }
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
         }
 
         /* Header & Navigation */
         header {
-            background-color: var(--white);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 15px 5%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .logo {
             display: flex;
@@ -90,120 +149,391 @@
             font-weight: 700;
         }
         .logo img {
-            height: 40px;
+            height: 45px;
             margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
         }
         .nav-links a {
-            margin-left: 25px;
             text-decoration: none;
             color: var(--secondary-color);
             font-weight: 600;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        .nav-links a:hover {
-            color: var(--primary-color);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-blue);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
         }
         .lang-toggle {
-            padding: 5px 10px;
+            padding: 8px 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 0.9em;
             font-weight: 600;
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+        .lang-toggle:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
         }
 
-        /* Hero Section */
+        /* Hero Section - Enhanced */
         #hero {
-            background: var(--dark-bg);
+            background: var(--gradient-dark);
             color: var(--white);
-            padding: 120px 5%;
-            height: 70vh;
+            padding: 150px 5% 100px;
+            height: 80vh;
             display: flex;
             align-items: center;
+            position: relative;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
         }
         #hero h1 {
-            font-size: 3.5em;
+            font-size: 4em;
             margin-bottom: 20px;
             font-weight: 700;
             line-height: 1.2;
+            position: relative;
+            z-index: 1;
         }
         #hero p {
-            font-size: 1.3em;
+            font-size: 1.4em;
             margin-bottom: 40px;
             color: #ccc;
+            position: relative;
+            z-index: 1;
         }
         .hero-content {
-            max-width: 800px;
+            max-width: 900px;
             text-align: left;
-            animation: fadeInDown 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-blue);
+            animation: slideIn 2s ease-out 1s both;
         }
 
-        /* Feature Cards */
+        /* Card Styles - Copied and Enhanced */
+        .software-grid, .services-grid, .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
         .card {
-            background-color: var(--white);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top: 5px solid var(--primary-color);
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, rgba(0, 198, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.15);
+            border-color: rgba(0, 123, 255, 0.2);
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--gradient-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .card-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .card:hover .card-icon::after {
+            transform: translateX(100%);
         }
         .card h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin: 0 0 1rem 0;
         }
         .card p {
-            font-size: 1em;
             color: #6c757d;
+            line-height: 1.6;
+            margin: 0;
+            flex: 1;
+        }
+        .card-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0 0;
+        }
+        .card-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #495057;
+            font-size: 0.95em;
+        }
+        .card-features li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1em;
         }
 
-        /* Services Section (Google/Facebook) */
-        #services .card {
-            border-top: 5px solid #ffc107; /* Different color for IT Services */
+        /* Post Cards */
+        .post-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        .post-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .post-content {
+            padding: 1.5rem;
+        }
+        .post-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        .post-description {
+            color: #6c757d;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        /* Services Cards Variation */
+        .service-card .card-icon {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        .service-card:hover {
+            border-color: rgba(40, 167, 69, 0.2);
         }
 
         /* Contact Section */
         #contact {
-            background: var(--primary-color);
+            background: var(--gradient-blue);
             color: var(--white);
-            padding: 60px 5%;
+            padding: 80px 5%;
+            position: relative;
+            overflow: hidden;
         }
-        #contact .whatsapp {
-            font-size: 1.8em;
-            margin-bottom: 20px;
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="50" fill="%23FFFFFF10"/></svg>') repeat;
+            opacity: 0.1;
+            animation: rotate 30s linear infinite;
+        }
+        .contact-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            color: var(--secondary-color);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
+        }
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255,255,255,0.2);
+        }
+        .social-links i {
+            font-size: 1.8rem;
+        }
+        .contact-info {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .contact-info .whatsapp {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         /* Animations */
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
+            from { opacity: 0; transform: translateY(-30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .card, .social-links a, .post-card {
+            animation: float 6s ease-in-out infinite;
+        }
+        .hero-content {
+            animation: fadeInDown 1s ease-out;
         }
 
-        /* Media Queries for Responsiveness */
+        /* Responsive */
         @media (max-width: 768px) {
-            #hero { height: 60vh; }
             #hero h1 { font-size: 2.5em; }
-            #hero p { font-size: 1em; }
-            h2 { font-size: 2em; }
-            .nav-links { display: none; } /* Simple mobile menu toggle can be added here */
-            header { flex-direction: column; }
-            .logo { margin-bottom: 10px; }
-            section { padding: 50px 5%; }
+            #hero p { font-size: 1.2em; }
+            .software-grid, .services-grid, .posts-grid { grid-template-columns: 1fr; gap: 20px; }
+            .nav-links { 
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.95);
+                flex-direction: column;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                padding: 1rem;
+            }
+            .nav-links.active { transform: translateY(0); }
+            .mobile-menu-btn { 
+                display: block; 
+                background: none; 
+                border: none; 
+                font-size: 1.5rem; 
+                cursor: pointer; 
+            }
+            header { padding: 1rem; }
+            .social-links { gap: 1rem; }
+            .post-image { height: 200px; }
+            .whatsapp-btn { width: 50px; height: 50px; font-size: 1.5rem; bottom: 15px; right: 15px; }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -211,146 +541,318 @@
 
     <header>
         <div class="logo">
-            <img src="Lion Tech.png" alt="LionTech Logo">
+            <img src="Lion tech.png" alt="LionTech Logo">
             <span class="text-primary">LION TECH</span>
         </div>
         <nav class="nav-links">
-            <a href="#software" data-en="Software" data-si="මෘදුකාංග">Software</a>
-            <a href="#gmb" data-en="IT Support" data-si="තාක්ෂණ සහාය">IT Support</a>
-            <a href="#contact" data-en="Contact" data-si="අමතන්න">Contact</a>
+            <a href="#software" data-en="Software Solutions" data-si="මෘදුකාංග විසඳුම්">Software Solutions</a>
+            <a href="#services" data-en="Digital Services" data-si="ඩිජිටල් සේවා">Digital Services</a>
+            <a href="#promotions" data-en="Promotions" data-si="ප්‍රවර්ධන">Promotions</a>
+            <a href="#contact" data-en="Contact Us" data-si="සම්බන්ධ වන්න">Contact Us</a>
         </nav>
-        <button class="btn lang-toggle" id="lang-toggle" data-lang="en">සිංහල</button>
+        <div class="header-right">
+            <button class="btn lang-toggle" id="lang-toggle" data-lang="en">සිංහල</button>
+            <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+        </div>
     </header>
 
     <section id="hero" class="bg-dark">
         <div class="container hero-content">
-            <h1 data-en="Unleash the Power of Tech in Your Sri Lankan Business." data-si="ශ්‍රී ලංකාවේ ඔබේ ව්‍යාපාරයට තාක්ෂණයේ බලය එක් කරන්න.">
-                Unleash the Power of Tech in Your Sri Lankan Business.
+            <h1 data-en="Empower Your Sri Lankan Business with Innovative Software Solutions" data-si="නව්‍ය මෘදුකාංග විසඳුම් සමඟ ඔබේ ශ්‍රී ලාංකික ව්‍යාපාරයට බලය ලබා දෙන්න">
+                Empower Your Sri Lankan Business with Innovative Software Solutions
             </h1>
-            <p data-en="Custom software solutions and essential business IT support tailored for you." data-si="ඔබ වෙනුවෙන් සකස් කළ අභිරුචි මෘදුකාංග විසඳුම් සහ අත්‍යවශ්‍ය ව්‍යාපාරික තාක්ෂණික සහාය.">
-                Custom software solutions and essential business IT support tailored for you.
+            <p data-en="Tailored bilingual systems for POS, Employee Management, Schools, and more – designed for local businesses." data-si="POS, සේවක කළමනාකරණය, පාසල් සහ තවත් බොහෝ දේ සඳහා සකස් කළ ද්විභාෂා පද්ධති – දේශීය ව්‍යාපාර සඳහා නිර්මාණය කර ඇත.">
+                Tailored bilingual systems for POS, Employee Management, Schools, and more – designed for local businesses.
             </p>
-            <a href="#software" class="btn btn-primary" data-en="Explore Solutions" data-si="විසඳුම් බලන්න">Explore Solutions</a>
+            <a href="#software" class="btn btn-primary" data-en="Discover Software" data-si="මෘදුකාංග සොයන්න">Discover Software</a>
         </div>
     </section>
 
-    <section id="software" class="container">
-        <h2 data-en="Cutting-Edge Software for Sri Lankan Businesses" data-si="ශ්‍රී ලංකාවේ ව්‍යාපාර සඳහා නවීන මෘදුකාංග">
-            Cutting-Edge Software for Sri Lankan Businesses
-        </h2>
-        <p class="subtitle" data-en="Intuitive, bilingual (Sinhala/English) systems to simplify your daily operations." data-si="ඔබගේ දෛනික මෙහෙයුම් සරල කිරීම සඳහා නිර්මාණය කළ, සිංහල/ඉංග්‍රීසි භාෂා සහාය සහිත පද්ධති.">
-            Intuitive, bilingual (Sinhala/English) systems to simplify your daily operations.
-        </p>
-
-        <div class="flex-grid">
-            <div class="card animate-on-scroll">
-                <h3>POS System (Retail & Wholesale)</h3>
-                <p data-en="Fast billing, real-time inventory, and advanced sales analytics to boost your profit margin. Supports barcode scanning and multiple payment methods." data-si="වේගවත් බිල්පත් කිරීම, Real-time තොග කළමනාකරණය, සහ ලාභය වැඩි කරන උසස් විකුණුම් විශ්ලේෂණ. බාර්කෝඩ් සහ බහු ගෙවීම් ක්‍රම සඳහා සහාය දක්වයි.">
-                    Fast billing, real-time inventory, and advanced sales analytics to boost your profit margin. Supports barcode scanning and multiple payment methods.
-                </p>
-            </div>
-            <div class="card animate-on-scroll">
-                <h3>Restaurant POS System</h3>
-                <p data-en="Optimized for the food industry: table management, order tracking, and kitchen display integration for efficient service." data-si="ආහාර කර්මාන්තය සඳහා විශේෂයි: මේස කළමනාකරණය, ඇණවුම් නිරීක්ෂණය සහ කාර්යක්ෂම සේවය සඳහා මුළුතැන්ගෙයි සංදර්ශක ඒකාබද්ධ කිරීම.">
-                    Optimized for the food industry: table management, order tracking, and kitchen display integration for efficient service.
-                </p>
-            </div>
-            <div class="card animate-on-scroll">
-                <h3>School Management System</h3>
-                <p data-en="A comprehensive platform for Sri Lankan schools: student enrollment, academic records, attendance, and a dedicated Parent Portal (LionTech_School-MSconcept.md)." data-si="ශ්‍රී ලංකාවේ පාසල් සඳහා පරිපූර්ණ වේදිකාවක්: ශිෂ්‍ය ලියාපදිංචිය, අධ්‍යයන වාර්තා, පැමිණීම, සහ දෙමාපිය ද්වාරය.">
-                    A comprehensive platform for Sri Lankan schools: student enrollment, academic records, attendance, and a dedicated Parent Portal.
-                </p>
-            </div>
-            <div class="card animate-on-scroll">
-                <h3>Employee & Salary Management</h3>
-                <p data-en="Simplify HR tasks with streamlined attendance tracking, leave management, and automated salary processing for your staff." data-si="පැමිණීම නිරීක්ෂණය, නිවාඩු කළමනාකරණය, සහ ස්වයංක්‍රීය වැටුප් සැකසීම සමඟින් HR කාර්යයන් සරල කරන්න.">
-                    Simplify HR tasks with streamlined attendance tracking, leave management, and automated salary processing for your staff.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="gmb" class="bg-dark">
+    <!-- Priority 1: Software Development Section -->
+    <section id="software">
         <div class="container">
-            <h2 data-en="Grow Your Presence Online" data-si="ඔබේ අන්තර්ජාල පැවැත්ම වර්ධනය කරන්න">
-                Grow Your Presence Online
+            <h2 data-en="Advanced Software Solutions for Sri Lankan Businesses" data-si="ශ්‍රී ලාංකික ව්‍යාපාර සඳහා උසස් මෘදුකාංග විසඳුම්">
+                Advanced Software Solutions for Sri Lankan Businesses
             </h2>
-            <p class="subtitle" data-en="We provide the digital tools and setup you need to get discovered and connect with customers." data-si="පාරිභෝගිකයන් සමඟ සම්බන්ධ වීමට සහ ඔවුන් අතරට යාමට අවශ්‍ය ඩිජිටල් මෙවලම් සහ සැකසුම් අපි සපයන්නෙමු.">
-                We provide the digital tools and setup you need to get discovered and connect with customers.
+            <p class="subtitle" data-en="Bilingual (Sinhala/English) software built to streamline operations, boost efficiency, and support growth for restaurants, retail, wholesale, schools, and HR needs." data-si="මෙහෙයුම් සරල කිරීම, කාර්යක්ෂමතාව වැඩිදියුණු කිරීම සහ වර්ධනයට සහාය දීම සඳහා රෙස්ටුරන්ට්, සිල්ලර, සිල්ලර/ථෝපිකරණ, පාසල් සහ HR අවශ්‍යතා සඳහා නිර්මාණය කළ සිංහල/ඉංග්‍රීසි මෘදුකාංග.">
+                Bilingual (Sinhala/English) software built to streamline operations, boost efficiency, and support growth for restaurants, retail, wholesale, schools, and HR needs.
             </p>
-
-            <div class="flex-grid">
-                <div class="card animate-on-scroll">
-                    <h3>Google My Business Setup 📍</h3>
-                    <p data-en="Profile Setup & Verification, Map Location Tagging, Business Information Optimization, and Google Posts/Offers Management." data-si="Google ව්‍යාපාර පැතිකඩ සැකසීම, සිතියම් ස්ථානය ටැග් කිරීම, තොරතුරු ප්‍රශස්තකරණය, සහ Google Posts/Offers කළමනාකරණය.">
-                        Profile Setup & Verification, Map Location Tagging, Business Information Optimization, and Google Posts/Offers Management.
+            <div class="software-grid">
+                <div class="card" data-aos="fade-up">
+                    <div class="card-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 data-en="POS System for Wholesale & Retail" data-si="සිල්ලර සහ තොප්පිකරණ සඳහා POS පද්ධතිය">POS System for Wholesale & Retail</h3>
+                    <p data-en="Efficient billing, inventory tracking, sales analytics, barcode support, and multi-payment options to optimize your business flow." data-si="කාර්යක්ෂම බිලිං, තොග නිරීක්ෂණය, විකුණුම් විශ්ලේෂණ, බාර්කෝඩ් සහාය සහ බහු ගෙවීම් විකල්ප සමඟ ව්‍යාපාර ප්‍රවාහය උපරිම කරන්න.">
+                        Efficient billing, inventory tracking, sales analytics, barcode support, and multi-payment options to optimize your business flow.
                     </p>
+                    <ul class="card-features">
+                        <li data-en="Real-time stock updates" data-si="Real-time තොග යාවත්කාලීන කිරීම්">Real-time stock updates</li>
+                        <li data-en="Customer management" data-si="පාරිභෝගික කළමනාකරණය">Customer management</li>
+                        <li data-en="Reporting dashboard" data-si="වාර්තා පුවරුව">Reporting dashboard</li>
+                    </ul>
                 </div>
-                <div class="card animate-on-scroll">
-                    <h3>Facebook Page Creation 📱</h3>
-                    <p data-en="Professional page setup, Custom logo & cover design, Post creation (Sinhala & English), and seamless WhatsApp Business Integration." data-si="වෘත්තීය පිටු සැකසීම, අභිරුචි ලාංඡන/කවර නිර්මාණය, සිංහල/ඉංග්‍රීසි පළකිරීම් සහාය, සහ WhatsApp ඒකාබද්ධ කිරීම.">
-                        Professional page setup, Custom logo & cover design, Post creation (Sinhala & English), and seamless WhatsApp Business Integration.
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 data-en="Restaurant POS System" data-si="රෙස්ටුරන්ට් POS පද්ධතිය">Restaurant POS System</h3>
+                    <p data-en="Table reservations, order management, kitchen integration, and menu customization for seamless dining operations." data-si="මේස රිසර්වේෂන්, ඇණවුම් කළමනාකරණය, කිච්චන් ඒකාබද්ධ කිරීම සහ මෙනු අභිරුචිකරණය සමඟ සුමට ආහාර සේවා මෙහෙයුම්.">
+                        Table reservations, order management, kitchen integration, and menu customization for seamless dining operations.
                     </p>
+                    <ul class="card-features">
+                        <li data-en="Digital menu display" data-si="ඩිජිටල් මෙනු ප්‍රදර්ශනය">Digital menu display</li>
+                        <li data-en="Bill splitting" data-si="බිල් බෙදාහැරීම">Bill splitting</li>
+                        <li data-en="Loyalty programs" data-si="විශ්වාසනීය වැඩසටහන්">Loyalty programs</li>
+                    </ul>
                 </div>
-                <div class="card animate-on-scroll">
-                    <h3>Essential IT Support 🧑‍💻</h3>
-                    <p data-en="Our service includes Business Photography, WhatsApp Business Setup, Website Performance Tweaks, and Online PC Troubleshooting." data-si="ව්‍යාපාරික ඡායාරූපකරණය, WhatsApp ව්‍යාපාර සැකසීම, වෙබ් අඩවි කාර්ය සාධන වැඩිදියුණු කිරීම්, සහ ඔන්ලයින් PC ගැටළු විසඳීම අපගේ සේවාවට ඇතුළත් වේ.">
-                        Our service includes Business Photography, WhatsApp Business Setup, Website Performance Tweaks, and Online PC Troubleshooting.
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 data-en="School Management System" data-si="පාසල් කළමනාකරණ පද්ධතිය">School Management System</h3>
+                    <p data-en="Student enrollment, attendance tracking, academic records, fee management, and parent portal for comprehensive school administration." data-si="ශිෂ්‍ය ලියාපදිංචිය, පැමිණීම නිරීක්ෂණය, අධ්‍යයන වාර්තා, ගාස්තු කළමනාකරණය සහ දෙමාපිය පිටුව සමඟ පරිපූර්ණ පාසල් පරිපාලනය.">
+                        Student enrollment, attendance tracking, academic records, fee management, and parent portal for comprehensive school administration.
                     </p>
+                    <ul class="card-features">
+                        <li data-en="Exam scheduling" data-si="පරීක්ෂණ සඳහා කාලසටහන්">Exam scheduling</li>
+                        <li data-en="Grade reports" data-si="ශ්‍රේණි වාර්තා">Grade reports</li>
+                        <li data-en="Communication tools" data-si="සන්නිවේදන මෙවලම්">Communication tools</li>
+                    </ul>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 data-en="Employee Management & Salary System" data-si="සේවක කළමනාකරණය සහ වැටුප් පද්ධතිය">Employee Management & Salary System</h3>
+                    <p data-en="Attendance logging, leave requests, payroll automation, and performance tracking to simplify HR processes." data-si="පැමිණීම ලොගිං, නිවාඩු ඉල්ලීම්, වැටුප් ස්වයංක්‍රීයකරණය සහ කාර්ය සාධන නිරීක්ෂණය සමඟ HR ක්‍රියාවලි සරල කරන්න.">
+                        Attendance logging, leave requests, payroll automation, and performance tracking to simplify HR processes.
+                    </p>
+                    <ul class="card-features">
+                        <li data-en="Shift scheduling" data-si="වර්ගීකරණ සඳහා කාලසටහන්">Shift scheduling</li>
+                        <li data-en="Deductions calculator" data-si="කපාතමිණුම් ගණනයාකරණය">Deductions calculator</li>
+                        <li data-en="Payslip generation" data-si="වැටුප් පත්‍රිකා නිර්මාණය">Payslip generation</li>
+                    </ul>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Priority 2: Google My Business -->
+    <section id="services" class="bg-dark">
+        <div class="container">
+            <h2 data-en="Enhance Your Online Presence with Google My Business" data-si="Google My Business සමඟ ඔබේ අන්තර්ජාල පැවැත්ම වැඩිදියුණු කරන්න">
+                Enhance Your Online Presence with Google My Business
+            </h2>
+            <p class="subtitle" data-en="Get discovered by local customers through optimized Google profiles, maps integration, and regular updates – essential for Sri Lankan businesses." data-si="අඩුපාඩුකළ Google පැතිකඩ්, සිතියම් ඒකාබද්ධ කිරීම සහ නිතිපතා යාවත්කාලීන කිරීම් තුළින් දේශීය පාරිභෝගිකයන් අතරට යාම – ශ්‍රී ලාංකික ව්‍යාපාර සඳහා අත්‍යවශ්‍ය.">
+                Get discovered by local customers through optimized Google profiles, maps integration, and regular updates – essential for Sri Lankan businesses.
+            </p>
+            <div class="services-grid">
+                <div class="card service-card" data-aos="fade-up">
+                    <div class="card-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 data-en="Google My Business Optimization" data-si="Google My Business උපරිමකරණය">Google My Business Optimization</h3>
+                    <p data-en="Complete profile setup, verification, location tagging on maps, business info enhancement, and management of posts and offers to attract more customers." data-si="පැතිකඩ සැකසීම, සත්‍යාපනය, සිතියම්හි ස්ථාන ටැගිං, ව්‍යාපාර තොරතුරු වැඩිදියුණු කිරීම සහ පළ සහ ඔෆර් කළමනාකරණය සමඟ පාරිභෝගිකයන් ආකර්ෂණය කරන්න.">
+                        Complete profile setup, verification, location tagging on maps, business info enhancement, and management of posts and offers to attract more customers.
+                    </p>
+                    <ul class="card-features">
+                        <li data-en="SEO-optimized descriptions" data-si="SEO-අඩුපාඩුකළ විස්තර">SEO-optimized descriptions</li>
+                        <li data-en="Photo and video uploads" data-si="ඡායාරූප සහ වීඩියෝ උඩුගත කිරීම">Photo and video uploads</li>
+                        <li data-en="Review management" data-si="පිළිගැනීම් කළමනාකරණය">Review management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Priority 3: Facebook Page & Other Services -->
+    <section id="other-services">
+        <div class="container">
+            <h2 data-en="Facebook Pages & Additional Digital Services" data-si="Facebook පිටු සහ අමතර ඩිජිටල් සේවා">
+                Facebook Pages & Additional Digital Services
+            </h2>
+            <p class="subtitle" data-en="Build engaging social media presence and get essential IT support to complement your online strategy." data-si="ඔබේ අන්තර්ජාල උපාය මාර්ගයට අනුකූල වන ආකර්ෂණීය සමාජ මාධ්‍ය පැවැත්ම සහ අත්‍යවශ්‍ය IT සහාය ලබා ගන්න.">
+                Build engaging social media presence and get essential IT support to complement your online strategy.
+            </p>
+            <div class="services-grid">
+                <div class="card service-card" data-aos="fade-up">
+                    <div class="card-icon">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <h3 data-en="Professional Facebook Page Setup" data-si="වෘත්තීය Facebook පිටු සැකසීම">Professional Facebook Page Setup</h3>
+                    <p data-en="Custom page creation with logo, cover design, bilingual posts, and WhatsApp integration for direct customer engagement." data-si="ලාංඡනය, කවර නිර්මාණය, ද්විභාෂා පළ සහ WhatsApp ඒකාබද්ධ කිරීම සමඟ අභිරුචි පිටු නිර්මාණය සඳහා සෘජු පාරිභෝගික එක්වීම.">
+                        Custom page creation with logo, cover design, bilingual posts, and WhatsApp integration for direct customer engagement.
+                    </p>
+                    <ul class="card-features">
+                        <li data-en="Content scheduling" data-si="අන්තර්ගත සඳහා කාලසටහන්">Content scheduling</li>
+                        <li data-en="Audience targeting" data-si="ප්‍රේක්ෂක ඉලක්කගත කිරීම">Audience targeting</li>
+                        <li data-en="Analytics insights" data-si="විශ්ලේෂණ තීක්ෂ්ණ බුද්ධිය">Analytics insights</li>
+                    </ul>
+                </div>
+                <div class="card service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 data-en="Other Essential Services" data-si="අනෙකුත් අත්‍යවශ්‍ය සේවා">Other Essential Services</h3>
+                    <p data-en="Business photography, WhatsApp Business setup, website tweaks, and remote PC troubleshooting for complete digital support." data-si="ව්‍යාපාරික ඡායාරූපකරණය, WhatsApp ව්‍යාපාර සැකසීම, වෙබ් අඩවි වැඩිදියුණු කිරීම් සහ දුරස්ථ PC ගැටළු විසඳීම සමඟ සම්පූර්ණ ඩිජිටල් සහාය.">
+                        Business photography, WhatsApp Business setup, website tweaks, and remote PC troubleshooting for complete digital support.
+                    </p>
+                    <ul class="card-features">
+                        <li data-en="Custom graphics" data-si="අභිරුචි ග්‍රැෆික්ස්">Custom graphics</li>
+                        <li data-en="Performance optimization" data-si="කාර්ය සාධන උපරිමකරණය">Performance optimization</li>
+                        <li data-en="Security audits" data-si="ආරක්ෂාව පරීක්ෂණ">Security audits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Section: Featured Promotions/Posts -->
+    <section id="promotions">
+        <div class="container">
+            <h2 data-en="Featured Promotions & Posts" data-si="විශේෂ ප්‍රවර්ධන සහ පළ">Featured Promotions & Posts</h2>
+            <p class="subtitle" data-en="Explore our latest promotional content showcasing services for your business growth." data-si="ඔබේ ව්‍යාපාර වර්ධනය සඳහා සේවා ප්‍රදර්ශනය කරන අපගේ නවතම ප්‍රවර්ධන අන්තර්ගතය බලන්න.">Explore our latest promotional content showcasing services for your business growth.</p>
+            <div class="posts-grid">
+                <div class="post-card" data-aos="fade-up">
+                    <img src="images/gmb-setup.jpg" alt="Google My Business Setup" class="post-image" data-en-alt="Google My Business Setup" data-si-alt="Google My Business සැකසුම">
+                    <div class="post-content">
+                        <h3 class="post-title" data-en="Google My Business Profile Setup" data-si="Google My Business පැතිකඩ සැකසුම">Google My Business Profile Setup</h3>
+                        <p class="post-description" data-en="Get your business listed on Google Maps with optimized profile and location tagging." data-si="අඩුපාඩුකළ පැතිකඩ සහ ස්ථාන ටැගිං සමඟ Google Maps හි ඔබේ ව්‍යාපාරය ලැයිස්තුගත කරන්න.">Get your business listed on Google Maps with optimized profile and location tagging.</p>
+                    </div>
+                </div>
+                <div class="post-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="images/facebook-page.jpg" alt="Facebook Page Creation" class="post-image" data-en-alt="Facebook Page Creation" data-si-alt="Facebook පිටු නිර්මාණය">
+                    <div class="post-content">
+                        <h3 class="post-title" data-en="Professional Facebook Page Creation" data-si="වෘත්තීය Facebook පිටු නිර්මාණය">Professional Facebook Page Creation</h3>
+                        <p class="post-description" data-en="Custom logo, cover design, and bilingual posts for engaging social media presence." data-si="ආකර්ෂණීය සමාජ මාධ්‍ය පැවැත්ම සඳහා අභිරුචි ලාංඡනය, කවර නිර්මාණය සහ ද්විභාෂා පළ.">Custom logo, cover design, and bilingual posts for engaging social media presence.</p>
+                    </div>
+                </div>
+                <div class="post-card" data-aos="fade-up" data-aos-delay="200">
+                    <img src="images/it-support.jpg" alt="IT Support Services" class="post-image" data-en-alt="IT Support Services" data-si-alt="IT සහාය සේවා">
+                    <div class="post-content">
+                        <h3 class="post-title" data-en="Tech Business Support" data-si="තාක්ෂණික ව්‍යාපාර සහාය">Tech Business Support</h3>
+                        <p class="post-description" data-en="Online PC troubleshooting, website tweaks, and WhatsApp Business setup for seamless operations." data-si="සුමට මෙහෙයුම් සඳහා ඔන්ලයින් PC ගැටළු විසඳීම, වෙබ් අඩවි වැඩිදියුණු කිරීම් සහ WhatsApp ව්‍යාපාර සැකසීම.">Online PC troubleshooting, website tweaks, and WhatsApp Business setup for seamless operations.</p>
+                    </div>
+                </div>
+                <div class="post-card" data-aos="fade-up" data-aos-delay="300">
+                    <img src="images/business-photography.jpg" alt="Business Photography" class="post-image" data-en-alt="Business Photography" data-si-alt="ව්‍යාපාරික ඡායාරූපකරණය">
+                    <div class="post-content">
+                        <h3 class="post-title" data-en="Business Photography & Posts" data-si="ව්‍යාපාරික ඡායාරූපකරණය සහ පළ">Business Photography & Posts</h3>
+                        <p class="post-description" data-en="Professional photos for social media posts to boost your online visibility." data-si="ඔබේ අන්තර්ජාල දෘශ්‍යතාව වැඩිදියුණු කිරීම සඳහා සමාජ මාධ්‍ය පළ සඳහා වෘත්තීය ඡායාරූප.">Professional photos for social media posts to boost your online visibility.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="subtitle" style="text-align: center; margin-top: 40px; font-size: 1em;" data-en="Add your promotional images to the 'images' folder (e.g., gmb-setup.jpg) to display them here." data-si="'images' ෆෝල්ඩරයට ඔබේ ප්‍රවර්ධන රූප එකතු කරන්න (උදා: gmb-setup.jpg) මෙහි ප්‍රදර්ශනය කිරීමට.">Add your promotional images to the 'images' folder (e.g., gmb-setup.jpg) to display them here.</p>
         </div>
     </section>
 
     <section id="contact">
         <div class="container">
-            <h2 data-en="Ready to Roar into the Future?" data-si="අනාගතය කරා පිවිසීමට සූදානම්ද?">
-                Ready to Roar into the Future?
-            </h2>
-            <p data-en="Let's discuss how LionTech can transform your business with technology." data-si="LionTech මගින් ඔබේ ව්‍යාපාරය තාක්ෂණයෙන් පරිවර්තනය කරන්නේ කෙසේදැයි සාකච්ඡා කරමු.">
-                Let's discuss how LionTech can transform your business with technology.
+            <h2 data-en="Ready to Transform Your Business?" data-si="ඔබේ ව්‍යාපාරය පරිවර්තනය කිරීමට සූදානම්ද?">Ready to Transform Your Business?</h2>
+            <p class="subtitle" data-en="Contact us today for a free consultation on software or digital services." data-si="මෘදුකාංග හෝ ඩිජිටල් සේවා පිළිබඳ නිදහස් පරාමර්ශනයක් සඳහා අදම ආරක්ෂා කරන්න.">
+                Contact us today for a free consultation on software or digital services.
             </p>
-            <div class="whatsapp">
-                <span data-en="Call or WhatsApp Today:" data-si="අදම අමතන්න හෝ WhatsApp කරන්න:">Call or WhatsApp Today:</span>
-                <span class="text-white">+94 76 311 6942</span>
+            
+            <div class="contact-info">
+                <div class="whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span data-en="Call or WhatsApp:" data-si="අමතන්න හෝ WhatsApp කරන්න:">Call or WhatsApp:</span>
+                    <span>+94 76 311 6942</span>
+                </div>
             </div>
-            <a href="https://wa.me/94763116942" target="_blank" class="btn btn-primary" data-en="Contact Us Now" data-si="දැන්ම අප හා සම්බන්ධ වන්න">Contact Us Now</a>
+
+            <form class="contact-form" action="mailto:liontechagent@gmail.com" method="post" enctype="text/plain">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Your Name" required data-en-placeholder="Your Name" data-si-placeholder="ඔබේ නම">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email Address" required data-en-placeholder="Email Address" data-si-placeholder="විද්‍යුත් තැපෑල">
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-control" placeholder="Phone Number" data-en-placeholder="Phone Number" data-si-placeholder="දුරකථන අංකය">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" rows="5" placeholder="Your Message" required data-en-placeholder="Your Message" data-si-placeholder="ඔබේ පණිවිඩය"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" data-en="Send Message" data-si="පණිවිඩය යවන්න">Send Message</button>
+            </form>
+
+            <div class="social-links">
+                <a href="https://web.facebook.com/people/LionTech-Support/61573514499418/" target="_blank" data-en="Facebook" data-si="Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://www.instagram.com/liontechsupport_lk/" target="_blank" data-en="Instagram" data-si="Instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.tiktok.com/@liontech.support" target="_blank" data-en="TikTok" data-si="TikTok">
+                    <i class="fab fa-tiktok"></i> TikTok
+                </a>
+                <a href="https://www.youtube.com/@LionTechSupport" target="_blank" data-en="YouTube" data-si="YouTube">
+                    <i class="fab fa-youtube"></i> YouTube
+                </a>
+            </div>
         </div>
     </section>
 
-    <footer class="bg-secondary" style="background-color: #343a40; color: white; padding: 20px; font-size: 0.9em;">
+    <footer>
         <div class="container">
-            &copy; <span id="current-year"></span> LionTech Business Support. All rights reserved.
+            &copy; <span id="current-year"></span> LionTech. All rights reserved. | Proudly serving Sri Lankan businesses.
         </div>
     </footer>
 
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/94763116942?text=Hi%20LionTech!%20I'm%20interested%20in%20your%20services.%20Can%20we%20discuss?" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        // Get current year for footer
+        // AOS Initialization
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Current Year
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Language Toggle Script
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const nav = document.querySelector('.nav-links');
+            nav.classList.toggle('active');
+        }
+
+        // Language Toggle - Updated for alt attributes
         const langToggle = document.getElementById('lang-toggle');
-        const elements = document.querySelectorAll('[data-en], [data-si]');
+        const elements = document.querySelectorAll('[data-en], [data-si], [data-en-placeholder], [data-si-placeholder], [data-en-alt], [data-si-alt]');
         let currentLang = 'en';
 
         const setLanguage = (lang) => {
             currentLang = lang;
+            document.documentElement.lang = lang;
             if (lang === 'en') {
-                document.documentElement.lang = 'en';
                 langToggle.textContent = 'සිංහල';
                 langToggle.setAttribute('data-lang', 'en');
             } else {
-                document.documentElement.lang = 'si';
                 langToggle.textContent = 'English';
                 langToggle.setAttribute('data-lang', 'si');
             }
-
             elements.forEach(el => {
-                const key = 'data-' + lang;
-                if (el.hasAttribute(key)) {
-                    el.textContent = el.getAttribute(key);
+                const attr = 'data-' + lang;
+                if (el.hasAttribute(attr)) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = el.getAttribute('data-' + lang + '-placeholder') || el.getAttribute(attr);
+                    } else if (el.tagName === 'IMG') {
+                        el.alt = el.getAttribute(attr);
+                    } else {
+                        el.textContent = el.getAttribute(attr);
+                    }
                 }
             });
+            // Re-init AOS after language change
+            AOS.refresh();
         };
 
         langToggle.addEventListener('click', () => {
@@ -358,27 +860,30 @@
             setLanguage(newLang);
         });
 
-        // Set initial language to English
+        // Initial Language
         setLanguage('en');
 
-
-        // Scroll Animation Script (to make cards fade in)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        }, {
-            threshold: 0.1 // Trigger when 10% of the element is visible
         });
 
-        document.querySelectorAll('.animate-on-scroll').forEach(element => {
-            observer.observe(element);
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
         });
-
     </script>
-
 </body>
 </html>
