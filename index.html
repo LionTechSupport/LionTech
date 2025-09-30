@@ -279,6 +279,7 @@
             background: linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, rgba(0, 198, 255, 0.1) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
         }
         .card:hover {
             transform: translateY(-10px) scale(1.02);
@@ -458,6 +459,8 @@
         }
         .social-links i {
             font-size: 1.8rem;
+            font-family: "Font Awesome 6 Brands" !important;
+            color: white !important;
         }
         .contact-info {
             text-align: center;
@@ -527,6 +530,134 @@
             .whatsapp-btn { width: 50px; height: 50px; font-size: 1.5rem; bottom: 15px; right: 15px; }
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            width: 95%;
+            max-width: 1400px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .pos-gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            position: relative;
+            height: 450px; /* Fixed height for the gallery container */
+            width: 100%; /* Ensure it takes full width for positioning */
+        }
+
+        .pos-gallery .gallery-item {
+            display: none; /* Hide all by default, JS will show one */
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .pos-gallery .gallery-item.active {
+            display: block;
+        }
+
+        .pos-gallery img {
+            max-width: 100%; /* Maximize image width */
+            max-height: 100%;
+            object-fit: contain; /* Ensure image fits within bounds */
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 5px; /* Reduce padding to push buttons closer to edges */
+            z-index: 10; /* Ensure buttons are above images */
+        }
+
+        .nav-btn {
+            background: var(--gradient-blue);
+            color: white;
+            border: none;
+            width: 50px; /* Slightly larger buttons */
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem; /* Larger icon */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.4); /* Add shadow for better visibility */
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,123,255,0.4);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-view-pos {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 0.9em;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn-view-pos:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
         /* Footer */
         footer {
             background: var(--secondary-color);
@@ -547,8 +678,8 @@
         <nav class="nav-links">
             <a href="#software" data-en="Software Solutions" data-si="මෘදුකාංග විසඳුම්">Software Solutions</a>
             <a href="#services" data-en="Digital Services" data-si="ඩිජිටල් සේවා">Digital Services</a>
-            <a href="#promotions" data-en="Promotions" data-si="ප්‍රවර්ධන">Promotions</a>
-            <a href="#contact" data-en="Contact Us" data-si="සම්බන්ධ වන්න">Contact Us</a>
+            <a href="#promotions" data-en="Promotions" data-si="ප්‍රවර්ධන සේවා">Promotions</a>
+            <a href="#contact" data-en="Contact Us" data-si="අප සමඟ සම්බන්ධ වන්න">Contact Us</a>
         </nav>
         <div class="header-right">
             <button class="btn lang-toggle" id="lang-toggle" data-lang="en">සිංහල</button>
@@ -558,23 +689,23 @@
 
     <section id="hero" class="bg-dark">
         <div class="container hero-content">
-            <h1 data-en="Empower Your Sri Lankan Business with Innovative Software Solutions" data-si="නව්‍ය මෘදුකාංග විසඳුම් සමඟ ඔබේ ශ්‍රී ලාංකික ව්‍යාපාරයට බලය ලබා දෙන්න">
+            <h1 data-en="Empower Your Sri Lankan Business with Innovative Software Solutions" data-si="නව්‍ය මෘදුකාංග විසඳුම් සමඟ ඔබේ ව්‍යාපාරය බලගන්වන්න">
                 Empower Your Sri Lankan Business with Innovative Software Solutions
             </h1>
-            <p data-en="Tailored bilingual systems for POS, Employee Management, Schools, and more – designed for local businesses." data-si="POS, සේවක කළමනාකරණය, පාසල් සහ තවත් බොහෝ දේ සඳහා සකස් කළ ද්විභාෂා පද්ධති – දේශීය ව්‍යාපාර සඳහා නිර්මාණය කර ඇත.">
+            <p data-en="Tailored bilingual systems for POS, Employee Management, Schools, and more – designed for local businesses." data-si="POS පද්ධති, කළමනාකරණ පද්ධති, පාසල් කළමනාකරණ පද්ධති සහ තවත් බොහෝ දේ සඳහා සකස් කළ ද්විභාෂා පද්ධති – දේශීය ව්‍යාපාර සඳහා නිර්මාණය කර ඇත.">
                 Tailored bilingual systems for POS, Employee Management, Schools, and more – designed for local businesses.
             </p>
-            <a href="#software" class="btn btn-primary" data-en="Discover Software" data-si="මෘදුකාංග සොයන්න">Discover Software</a>
+            <a href="#software" class="btn btn-primary" data-en="Discover Software" data-si="අපගේ මෘදුකාංග">Discover Software</a>
         </div>
     </section>
 
     <!-- Priority 1: Software Development Section -->
     <section id="software">
         <div class="container">
-            <h2 data-en="Advanced Software Solutions for Sri Lankan Businesses" data-si="ශ්‍රී ලාංකික ව්‍යාපාර සඳහා උසස් මෘදුකාංග විසඳුම්">
+            <h2 data-en="Advanced Software Solutions for Sri Lankan Businesses" data-si="ශ්‍රී ලාංකික ව්‍යාපාර සඳහා හොඳම මෘදුකාංග විසඳුම් අපෙන්">
                 Advanced Software Solutions for Sri Lankan Businesses
             </h2>
-            <p class="subtitle" data-en="Bilingual (Sinhala/English) software built to streamline operations, boost efficiency, and support growth for restaurants, retail, wholesale, schools, and HR needs." data-si="මෙහෙයුම් සරල කිරීම, කාර්යක්ෂමතාව වැඩිදියුණු කිරීම සහ වර්ධනයට සහාය දීම සඳහා රෙස්ටුරන්ට්, සිල්ලර, සිල්ලර/ථෝපිකරණ, පාසල් සහ HR අවශ්‍යතා සඳහා නිර්මාණය කළ සිංහල/ඉංග්‍රීසි මෘදුකාංග.">
+            <p class="subtitle" data-en="Bilingual (Sinhala/English) software built to streamline operations, boost efficiency, and support growth for restaurants, retail, wholesale, schools, and HR needs." data-si="ඔබේ දෛනික කටයුතු සරල කිරීම, කාර්යක්ෂමතාව වැඩිදියුණු කිරීම සහ ව්‍යාපාර වර්ධනයට සහාය දීම සඳහා රෙස්ටුරන්ට්, සිල්ලර/තොග වෙළ‍ඳසැල්, පාසල් සහ ආයතන අවශ්‍යතා සඳහා නිර්මාණය කළ සිංහල/ඉංග්‍රීසි ද්විභාෂා මෘදුකාංග.">
                 Bilingual (Sinhala/English) software built to streamline operations, boost efficiency, and support growth for restaurants, retail, wholesale, schools, and HR needs.
             </p>
             <div class="software-grid">
@@ -582,8 +713,8 @@
                     <div class="card-icon">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
-                    <h3 data-en="POS System for Wholesale & Retail" data-si="සිල්ලර සහ තොප්පිකරණ සඳහා POS පද්ධතිය">POS System for Wholesale & Retail</h3>
-                    <p data-en="Efficient billing, inventory tracking, sales analytics, barcode support, and multi-payment options to optimize your business flow." data-si="කාර්යක්ෂම බිලිං, තොග නිරීක්ෂණය, විකුණුම් විශ්ලේෂණ, බාර්කෝඩ් සහාය සහ බහු ගෙවීම් විකල්ප සමඟ ව්‍යාපාර ප්‍රවාහය උපරිම කරන්න.">
+                    <h3 data-en="POS System for Wholesale & Retail" data-si="සිල්ලර සහ තොග වෙළඳසැල් සඳහා POS පද්ධති">POS System for Wholesale & Retail</h3>
+                    <p data-en="Efficient billing, inventory tracking, sales analytics, barcode support, and multi-payment options to optimize your business flow." data-si="කාර්යක්ෂම විකුණුම්, තොග නිරීක්ෂණය, විකුණුම් විශ්ලේෂණ, ස්වයංක්‍රීය පණිවිඩ සහාය සහ ගෙවීම් විකල්ප සමඟ ඔබේ ව්‍යාපාරය ප්‍රවර්ධනය කරන්න.">
                         Efficient billing, inventory tracking, sales analytics, barcode support, and multi-payment options to optimize your business flow.
                     </p>
                     <ul class="card-features">
@@ -605,6 +736,7 @@
                         <li data-en="Bill splitting" data-si="බිල් බෙදාහැරීම">Bill splitting</li>
                         <li data-en="Loyalty programs" data-si="විශ්වාසනීය වැඩසටහන්">Loyalty programs</li>
                     </ul>
+                    <button class="btn-view-pos" data-en="View Screenshots" data-si="ස්ක්‍රීන්ෂොට් දකින්න" onclick="openPosModal()">View Screenshots</button>
                 </div>
                 <div class="card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-icon">
@@ -678,7 +810,7 @@
             <div class="services-grid">
                 <div class="card service-card" data-aos="fade-up">
                     <div class="card-icon">
-                        <i class="fab fa-facebook"></i>
+                        <i class="fa-brands fa-facebook"></i>
                     </div>
                     <h3 data-en="Professional Facebook Page Setup" data-si="වෘත්තීය Facebook පිටු සැකසීම">Professional Facebook Page Setup</h3>
                     <p data-en="Custom page creation with logo, cover design, bilingual posts, and WhatsApp integration for direct customer engagement." data-si="ලාංඡනය, කවර නිර්මාණය, ද්විභාෂා පළ සහ WhatsApp ඒකාබද්ධ කිරීම සමඟ අභිරුචි පිටු නිර්මාණය සඳහා සෘජු පාරිභෝගික එක්වීම.">
@@ -756,7 +888,7 @@
             
             <div class="contact-info">
                 <div class="whatsapp">
-                    <i class="fab fa-whatsapp"></i>
+                    <i class="fa-brands fa-whatsapp"></i>
                     <span data-en="Call or WhatsApp:" data-si="අමතන්න හෝ WhatsApp කරන්න:">Call or WhatsApp:</span>
                     <span>+94 76 311 6942</span>
                 </div>
@@ -779,17 +911,17 @@
             </form>
 
             <div class="social-links">
-                <a href="https://web.facebook.com/people/LionTech-Support/61573514499418/" target="_blank" data-en="Facebook" data-si="Facebook">
-                    <i class="fab fa-facebook-f"></i> Facebook
+                <a href="https://web.facebook.com/people/LionTech-Support/61573514499418/" target="_blank" data-en="Facebook" data-si="ෆේස්බුක්">
+                    <i class="fa-brands fa-facebook"></i> Facebook
                 </a>
-                <a href="https://www.instagram.com/liontechsupport_lk/" target="_blank" data-en="Instagram" data-si="Instagram">
-                    <i class="fab fa-instagram"></i> Instagram
+                <a href="https://www.instagram.com/liontechsupport_lk/" target="_blank" data-en="Instagram" data-si="ඉන්ස්ටග්‍රෑම්">
+                    <i class="fa-brands fa-instagram"></i> Instagram
                 </a>
-                <a href="https://www.tiktok.com/@liontech.support" target="_blank" data-en="TikTok" data-si="TikTok">
-                    <i class="fab fa-tiktok"></i> TikTok
+                <a href="https://www.tiktok.com/@liontech.support" target="_blank" data-en="TikTok" data-si="ටික්ටොක්">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
                 </a>
-                <a href="https://www.youtube.com/@LionTechSupport" target="_blank" data-en="YouTube" data-si="YouTube">
-                    <i class="fab fa-youtube"></i> YouTube
+                <a href="https://www.youtube.com/@LionTechSupport" target="_blank" data-en="YouTube" data-si="යූටියුබ්">
+                    <i class="fa-brands fa-youtube"></i> YouTube
                 </a>
             </div>
         </div>
@@ -803,11 +935,86 @@
 
     <!-- WhatsApp Button -->
     <a href="https://wa.me/94763116942?text=Hi%20LionTech!%20I'm%20interested%20in%20your%20services.%20Can%20we%20discuss?" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
+        <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <!-- Restaurant POS Modal -->
+    <div id="posModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePosModal()">&times;</span>
+            <h2 data-en="Restaurant POS System Screenshots" data-si="රෙස්ටුරන්ට් POS පද්ධති ස්ක්‍රීන්ෂොට්">Restaurant POS System Screenshots</h2>
+            <div class="pos-gallery">
+                <div class="gallery-nav">
+                    <button class="nav-btn" id="prevBtn" onclick="scrollGallery('prev')" data-en="<" data-si="පෙර">‹</button>
+                    <button class="nav-btn" id="nextBtn" onclick="scrollGallery('next')" data-en=">" data-si="ඊලඟ">›</button>
+                </div>
+                <div class="gallery-item active">
+                    <img src="images/restaurant-pos-1.jpg" alt="POS System Overview Card" data-en-alt="POS System Overview Card" data-si-alt="POS පද්ධති දළ පත්‍රය">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/restaurant-pos-2.jpg" alt="Dashboard Statistics" data-en-alt="Dashboard Statistics" data-si-alt="පුවරු සංඛ්‍යාලේඛන">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/restaurant-pos-3.jpg" alt="Login Screen" data-en-alt="Login Screen" data-si-alt="පිවිසුම තිරය">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/restaurant-pos-4.jpg" alt="Point of Sale Interface" data-en-alt="Point of Sale Interface" data-si-alt="විකුණුම් ස්ථාන අතුරුමුහුණත">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+        // POS Modal Functions
+        function openPosModal() {
+            document.getElementById('posModal').style.display = 'block';
+        }
+
+        function closePosModal() {
+            document.getElementById('posModal').style.display = 'none';
+        }
+
+        // Close modal on outside click
+        window.addEventListener('click', function(event) {
+            var modal = document.getElementById('posModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Gallery Carousel Functions
+        let currentImageIndex = 0;
+        const galleryItems = document.querySelectorAll('.pos-gallery .gallery-item');
+
+        function showImage(index) {
+            galleryItems.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+            currentImageIndex = index;
+            updateNavButtons();
+        }
+
+        function scrollGallery(direction) {
+            let newIndex = currentImageIndex;
+            if (direction === 'prev') {
+                newIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            } else {
+                newIndex = (currentImageIndex + 1) % galleryItems.length;
+            }
+            showImage(newIndex);
+        }
+
+        function updateNavButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            prevBtn.disabled = currentImageIndex === 0;
+            nextBtn.disabled = currentImageIndex === galleryItems.length - 1;
+        }
+
+        // Initial display
+        showImage(0);
+
         // AOS Initialization
         AOS.init({
             duration: 1000,
@@ -824,7 +1031,7 @@
             nav.classList.toggle('active');
         }
 
-        // Language Toggle - Updated for alt attributes
+        // Language Toggle - Updated for alt attributes and social links
         const langToggle = document.getElementById('lang-toggle');
         const elements = document.querySelectorAll('[data-en], [data-si], [data-en-placeholder], [data-si-placeholder], [data-en-alt], [data-si-alt]');
         let currentLang = 'en';
